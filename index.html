@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAPITA · Crowdfunding Equity Afrique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #BA7517;
+    --gold-light: #FAEEDA;
+    --gold-mid: #EF9F27;
+    --bg: #FAFAF8;
+    --bg-card: #FFFFFF;
+    --bg-surface: #F4F3EF;
+    --text-primary: #1A1A18;
+    --text-secondary: #6B6A65;
+    --text-muted: #9E9D98;
+    --border: rgba(0,0,0,0.1);
+    --border-strong: rgba(0,0,0,0.18);
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 20px;
+    --shadow-card: 0 1px 4px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.08);
+    --shadow-hover: 0 4px 16px rgba(0,0,0,0.1), 0 0 0 0.5px rgba(0,0,0,0.1);
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text-primary);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250,250,248,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .logo {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+  .logo span { color: var(--gold); }
+
+  .nav-tabs {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+  }
+
+  .nav-tab {
+    padding: 7px 16px;
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    font-size: 13.5px;
+    font-weight: 400;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    transition: all 0.15s ease;
+  }
+  .nav-tab:hover { background: var(--bg-surface); color: var(--text-primary); }
+  .nav-tab.active {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border-color: var(--border-strong);
+    font-weight: 500;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* ── SCREENS ── */
+  .screen { display: none; animation: fadeUp 0.22s ease; }
+  .screen.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1040px; margin: 0 auto; padding: 0 2rem; }
+  .section { padding: 2.5rem 0; }
+  .section + .section { border-top: 1px solid var(--border); }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 5rem 0 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  .eyebrow::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 600;
+    line-height: 1.15;
+    max-width: 640px;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--text-secondary);
+    max-width: 520px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    background: var(--gold);
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+    text-decoration: none;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-primary:active { transform: scale(0.98); }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 400;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .btn-outline:hover { background: var(--bg-surface); }
+  .btn-outline:active { transform: scale(0.98); }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-card);
+  }
+  .stat-item {
+    padding: 2rem;
+    border-right: 1px solid var(--border);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-val {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-val em { color: var(--gold); font-style: normal; }
+  .stat-lbl { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* ── CARDS GRID ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.15s;
+    border: 1px solid var(--border);
+  }
+  .card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .card-title { font-size: 16px; font-weight: 500; margin-bottom: 6px; }
+  .card-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 1.25rem; }
+
+  /* ── PROGRESS ── */
+  .progress-wrap { margin-bottom: 10px; }
+  .progress-bar {
+    height: 5px;
+    background: var(--bg-surface);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-mid));
+    border-radius: 10px;
+    transition: width 0.6s ease;
+  }
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .progress-meta strong { color: var(--text-primary); font-weight: 500; }
+  .badge-urgent {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 100px;
+    background: var(--gold-light);
+    color: #854F0B;
+  }
+
+  /* ── CAMPAIGN DETAIL ── */
+  .detail-layout {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .detail-main { flex: 1; min-width: 280px; }
+  .detail-sidebar { flex: 0 0 300px; }
+
+  .detail-title {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .detail-meta { font-size: 13px; color: var(--text-secondary); line-height: 2; margin-bottom: 1.5rem; }
+  .detail-meta strong { color: var(--text-primary); font-weight: 500; }
+
+  .pitch-block { margin-bottom: 1rem; font-size: 14px; line-height: 1.8; color: var(--text-secondary); }
+  .pitch-block strong { color: var(--text-primary); font-weight: 500; }
+
+  /* ── SIMULATOR ── */
+  .simulator {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 1.75rem;
+    box-shadow: var(--shadow-card);
+    position: sticky;
+    top: 80px;
+  }
+
+  .sim-title { font-size: 14px; font-weight: 500; margin-bottom: 1.5rem; color: var(--text-primary); }
+
+  .sim-row { margin-bottom: 1.25rem; }
+  .sim-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+  .sim-label span { font-weight: 500; color: var(--text-primary); }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 4px;
+    background: var(--bg-surface);
+    outline: none;
+    cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 1px var(--gold);
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+  input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 1px var(--gold);
+    cursor: pointer;
+  }
+
+  .sim-result {
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    margin: 1.25rem 0;
+  }
+  .sim-result-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .sim-result-value {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .sim-result-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding: 4px 0;
+    border-top: 1px solid var(--border);
+  }
+  .sim-result-row strong { color: var(--text-primary); font-weight: 500; }
+  .sim-note { font-size: 11px; color: var(--text-muted); line-height: 1.6; margin-top: 1rem; }
+
+  /* ── ROADMAP ── */
+  .roadmap { display: flex; flex-direction: column; gap: 0; }
+  .road-item {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .road-item:last-child { border-bottom: none; }
+  .road-period {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gold);
+    white-space: nowrap;
+    padding-top: 3px;
+    min-width: 100px;
+  }
+  .road-dot {
+    flex: 0 0 10px;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+  .road-title { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+  .road-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.65; }
+
+  /* ── TEAM ── */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 16px;
+  }
+  .team-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    box-shadow: var(--shadow-card);
+  }
+  .avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--gold-light);
+    color: #854F0B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  .team-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .team-role { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* ── STEPS ── */
+  .steps-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .step {
+    flex: 1;
+    min-width: 80px;
+    padding: 12px 10px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--bg-card);
+  }
+  .step.done {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: var(--gold-light);
+  }
+  .step-num {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* ── DOCS GRID ── */
+  .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .doc-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    transition: box-shadow 0.15s;
+  }
+  .doc-card:hover { box-shadow: var(--shadow-hover); }
+  .doc-icon { font-size: 22px; margin-bottom: 8px; }
+  .doc-title { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+  .doc-sub { font-size: 12px; color: var(--text-secondary); }
+
+  /* ── FORM ── */
+  .form-layout { display: flex; gap: 2rem; flex-wrap: wrap; align-items: flex-start; }
+  .form-main { flex: 1; min-width: 280px; }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { margin-bottom: 1rem; }
+  .form-label { font-size: 13px; color: var(--text-secondary); display: block; margin-bottom: 6px; }
+
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-family: var(--font-sans);
+    transition: border-color 0.15s;
+    outline: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(186,117,23,0.1);
+  }
+  .form-textarea { resize: vertical; min-height: 90px; }
+
+  .form-sidebar {
+    flex: 0 0 280px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-card);
+  }
+  .sidebar-title { font-size: 14px; font-weight: 500; margin-bottom: 1rem; }
+  .check-list { list-style: none; font-size: 13px; color: var(--text-secondary); }
+  .check-list li {
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .check-list li:last-child { border-bottom: none; }
+  .check-icon { color: var(--gold); font-weight: 500; flex-shrink: 0; }
+  .price-box {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+  .price-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 6px; }
+  .price-val {
+    font-family: var(--font-serif);
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  .price-note { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--text-primary);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    z-index: 999;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.25s ease;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: none; }
+
+  /* ── HOW IT WORKS ── */
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+  }
+  .how-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    box-shadow: var(--shadow-card);
+  }
+  .how-num {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--gold-light);
+    -webkit-text-stroke: 1px var(--gold);
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+  .how-title { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .how-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2rem;
+  }
+  footer strong { color: var(--gold); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    nav { padding: 0 1rem; }
+    .nav-tab { padding: 6px 10px; font-size: 12px; }
+    .container { padding: 0 1.25rem; }
+    .hero { padding: 3rem 0 2.5rem; }
+    h1 { font-size: 28px; }
+    .stats-bar { grid-template-columns: 1fr; }
+    .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+    .stat-item:last-child { border-bottom: none; }
+    .form-grid { grid-template-columns: 1fr; }
+    .detail-sidebar { flex: none; width: 100%; position: static; }
+    .form-sidebar { flex: none; width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#" onclick="goTo('accueil');return false;">KA<span>P</span>ITA</a>
+  <ul class="nav-tabs" id="navTabs">
+    <li><button class="nav-tab active" data-screen="accueil">Accueil</button></li>
+    <li><button class="nav-tab" data-screen="campagnes">Campagnes</button></li>
+    <li><button class="nav-tab" data-screen="investir">Simulateur</button></li>
+    <li><button class="nav-tab" data-screen="startups">Lever des fonds</button></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════════════ ACCUEIL -->
+<div class="screen active" id="screen-accueil">
+  <div class="container">
+    <section class="hero">
+      <div class="eyebrow">Crowdfunding Equity · Afrique subsaharienne</div>
+      <h1>Investissez dans l'Afrique que vous croyez</h1>
+      <p class="hero-sub">KAPITA connecte des investisseurs africains et diaspora avec des startups à fort potentiel en zone UEMOA. Ticket d'entrée à 200 €, paiement Mobile Money.</p>
+      <div class="btn-row">
+        <button class="btn-primary" onclick="goTo('campagnes')">Voir les campagnes actives →</button>
+        <button class="btn-outline" onclick="goTo('startups')">Lever des fonds</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-val"><em>200 €</em></div>
+      <div class="stat-lbl">Ticket d'entrée investisseur<br>accessible classe moyenne africaine</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">330 Mds$</div>
+      <div class="stat-lbl">Besoins de financement non satisfaits<br>des PME africaines par an (SFI)</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">8 pays</div>
+      <div class="stat-lbl">Zone UEMOA couverte<br>1 régulateur BCEAO unique</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <section class="section">
+      <div class="section-label">Pourquoi maintenant</div>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="tag">Marché</div>
+          <div class="card-title">Vide entre love money et VC</div>
+          <div class="card-desc">Les banques refusent 90 % des startups africaines. Le VC structuré cible les deals supérieurs à 500 000 €. KAPITA adresse précisément ce vide.</div>
+        </div>
+        <div class="card">
+          <div class="tag">Infrastructure</div>
+          <div class="card-title">Mobile Money déjà déployé</div>
+          <div class="card-desc">Orange Money, MTN MoMo, Wave et Moov couvrent 60 %+ de la population. Les rails de paiement existent, sans dépendre des banques.</div>
+        </div>
+        <div class="card">
+          <div class="tag">Compétition</div>
+          <div class="card-title">Aucun acteur dominant</div>
+          <div class="card-desc">Pas de plateforme panafricaine d'equity crowdfunding avec ticket accessible et couverture multi-pays robuste. Fenêtre ouverte.</div>
+        </div>
+        <div class="card">
+          <div class="tag">Impact ESG</div>
+          <div class="card-title">Levier institutionnel puissant</div>
+          <div class="card-desc">BAD, SFI, Proparco, Mastercard Foundation financent activement les véhicules à impact mesurable. Double source de revenus.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-label">Roadmap de lancement · 18 mois</div>
+      <div class="roadmap">
+        <div class="road-item">
+          <div class="road-period">M1 – M3</div>
+          <div class="road-dot"></div>
+          <div><div class="road-title">Fondation</div><div class="road-desc">Incorporation légale, recrutement équipe core (CTO, Legal Officer, Business Developer), développement MVP plateforme, négociation partenariats bancaires et incubateurs.</div></div>
+        </div>
+        <div class="road-item">
+          <div class="road-period">M4 – M6</div>
+          <div class="road-dot"></div>
+          <div><div class="road-title">Beta privée</div><div class="road-desc">3 campagnes pilotes avec startups pré-sélectionnées et investisseurs invités. Validation du parcours complet, correction des frictions UX, test des flux Mobile Money.</div></div>
+        </div>
+        <div class="road-item">
+          <div class="road-period">M7 – M9</div>
+          <div class="road-dot"></div>
+          <div><div class="road-title">Lancement public Côte d'Ivoire</div><div class="road-desc">Ouverture au grand public ivoirien et à la diaspora. Campagne digitale, presse, AfricArena, GITEX Africa.</div></div>
+        </div>
+        <div class="road-item">
+          <div class="road-period">M10 – M12</div>
+          <div class="road-dot"></div>
+          <div><div class="road-title">Extension UEMOA</div><div class="road-desc">Déploiement Sénégal et Burkina Faso. Recrutement ambassadeurs pays. Adaptation KYC aux documents nationaux.</div></div>
+        </div>
+        <div class="road-item">
+          <div class="road-period">M13 – M18</div>
+          <div class="road-dot"></div>
+          <div><div class="road-title">Consolidation & Series A</div><div class="road-desc">Objectif : 50 campagnes cumulées, 5 000 investisseurs actifs, 4 M€ levés. Préparation dossier expansion anglophone (Ghana, Nigeria, Kenya).</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-label">Rejoindre l'équipe · Postes ouverts</div>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="avatar">CTO</div>
+          <div class="team-name">Chief Technology Officer</div>
+          <div class="team-role">Stack Node.js / React · AWS Africa · Intégration APIs Mobile Money · PWA mobile-first</div>
+        </div>
+        <div class="team-card">
+          <div class="avatar">LGL</div>
+          <div class="team-name">Legal & Compliance Officer</div>
+          <div class="team-role">Droit OHADA · Réglementation BCEAO · KYC/AML cross-border · Structuration multi-entités</div>
+        </div>
+        <div class="team-card">
+          <div class="avatar">BD</div>
+          <div class="team-name">Business Developer UEMOA</div>
+          <div class="team-role">Sourcing startups · Partenariats incubateurs · Relations institutionnelles BAD / SFI</div>
+        </div>
+        <div class="team-card">
+          <div class="avatar">UX</div>
+          <div class="team-name">UX / Product Designer</div>
+          <div class="team-role">Mobile-first africain · Onboarding KYC · Système de design · Accessibilité offline</div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ CAMPAGNES -->
+<div class="screen" id="screen-campagnes">
+  <div class="container">
+    <section class="section">
+      <div class="section-label">4 campagnes actives · Zone UEMOA</div>
+      <div class="cards-grid">
+        <div class="card" onclick="goTo('investir')">
+          <div class="tag">AgTech · Côte d'Ivoire</div>
+          <div class="card-title">AgriConnect CI</div>
+          <div class="card-desc">Marketplace B2B agriculteurs / acheteurs institutionnels avec paiement Mobile Money intégré et traçabilité chaîne.</div>
+          <div class="progress-wrap">
+            <div class="progress-bar"><div class="progress-fill" style="width:56%"></div></div>
+            <div class="progress-meta"><span><strong>45 000 €</strong> levés</span><span>Objectif 80 000 €</span></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-top:10px">
+            <span style="color:var(--text-muted)">142 investisseurs · 56 %</span>
+            <span class="badge-urgent">12 jours restants</span>
+          </div>
+        </div>
+        <div class="card" onclick="goTo('investir')">
+          <div class="tag">HealthTech · Sénégal</div>
+          <div class="card-title">WakaHealth</div>
+          <div class="card-desc">Application de suivi santé et téléconsultation pour zones péri-urbaines et rurales, fonctionnement offline partiel.</div>
+          <div class="progress-wrap">
+            <div class="progress-bar"><div class="progress-fill" style="width:47%"></div></div>
+            <div class="progress-meta"><span><strong>28 200 €</strong> levés</span><span>Objectif 60 000 €</span></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-top:10px">
+            <span style="color:var(--text-muted)">89 investisseurs · 47 %</span>
+            <span style="color:var(--text-muted)">28 jours restants</span>
+          </div>
+        </div>
+        <div class="card" onclick="goTo('investir')">
+          <div class="tag">EdTech · Burkina Faso</div>
+          <div class="card-title">EduTek Burkina</div>
+          <div class="card-desc">Plateforme d'apprentissage offline-first pour lycéens en zones à connectivité instable. Contenu curriculaire national.</div>
+          <div class="progress-wrap">
+            <div class="progress-bar"><div class="progress-fill" style="width:24%"></div></div>
+            <div class="progress-meta"><span><strong>12 000 €</strong> levés</span><span>Objectif 50 000 €</span></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-top:10px">
+            <span style="color:var(--text-muted)">38 investisseurs · 24 %</span>
+            <span style="color:var(--text-muted)">45 jours restants</span>
+          </div>
+        </div>
+        <div class="card" onclick="goTo('investir')">
+          <div class="tag">Fintech · Mali</div>
+          <div class="card-title">FinFlexi</div>
+          <div class="card-desc">Micro-épargne automatique et crédit instantané pour commerçants informels via USSD et Mobile Money, sans compte bancaire.</div>
+          <div class="progress-wrap">
+            <div class="progress-bar"><div class="progress-fill" style="width:67%"></div></div>
+            <div class="progress-meta"><span><strong>67 000 €</strong> levés</span><span>Objectif 100 000 €</span></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-top:10px">
+            <span style="color:var(--text-muted)">224 investisseurs · 67 %</span>
+            <span class="badge-urgent">5 jours restants</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-label">Comment ça marche · Parcours investisseur</div>
+      <div class="how-grid">
+        <div class="how-card"><div class="how-num">01</div><div class="how-title">KYC Mobile</div><div class="how-desc">Scan CNI ou passeport, selfie liveness check via Smile Identity. Validation en moins de 5 minutes.</div></div>
+        <div class="how-card"><div class="how-num">02</div><div class="how-title">Choisir</div><div class="how-desc">Accès à la note d'information, due diligence standardisée KAPITA et Q&A avec le fondateur.</div></div>
+        <div class="how-card"><div class="how-num">03</div><div class="how-title">Investir</div><div class="how-desc">Orange Money, Wave, MTN MoMo ou carte bancaire. Fonds en escrow jusqu'à l'atteinte du seuil.</div></div>
+        <div class="how-card"><div class="how-num">04</div><div class="how-title">Suivre</div><div class="how-desc">Rapport trimestriel, dashboard investisseur, actualités fondateur et indicateurs de croissance.</div></div>
+        <div class="how-card"><div class="how-num">05</div><div class="how-title">Sortie</div><div class="how-desc">Rachat de parts, introduction en bourse ou redistribution de dividendes. Plus-values rapatriables en euros.</div></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ SIMULATEUR -->
+<div class="screen" id="screen-investir">
+  <div class="container">
+    <section class="section">
+      <div class="detail-layout">
+        <div class="detail-main">
+          <div class="tag" style="margin-bottom:1rem">AgTech · Côte d'Ivoire · Campagne vedette</div>
+          <h2 class="detail-title">AgriConnect CI</h2>
+          <div class="detail-meta">
+            <strong>Fondateurs :</strong> Kouassi Amani & Fatou Diallo<br>
+            <strong>Secteur :</strong> Agriculture numérique · B2B2C<br>
+            <strong>Siège :</strong> Abidjan, Côte d'Ivoire<br>
+            <strong>Partenaire bancaire :</strong> NSIA Banque (agrément BCEAO)<br>
+            <strong>Structure :</strong> SAS OHADA · Droit ivoirien
+          </div>
+
+          <div class="pitch-block"><strong>Le problème :</strong> 60 % des pertes post-récolte en Afrique subsaharienne sont dues à l'absence de débouchés directs pour les petits agriculteurs.</div>
+          <div class="pitch-block"><strong>La solution :</strong> Une marketplace B2B qui connecte coopératives agricoles et acheteurs institutionnels avec paiement immédiat via Mobile Money et traçabilité complète de la chaîne.</div>
+          <div class="pitch-block"><strong>Traction :</strong> 1 200 agriculteurs actifs, 34 acheteurs référencés, 2,1 M€ de volume de transactions en 18 mois de pilote terrain.</div>
+          <div class="pitch-block"><strong>Utilisation des fonds :</strong> 40 % développement produit, 35 % expansion commerciale, 15 % conformité et licences, 10 % fonds de roulement.</div>
+
+          <div style="margin-top:1.5rem">
+            <div class="progress-bar"><div class="progress-fill" style="width:56%"></div></div>
+            <div class="progress-meta" style="margin-top:8px">
+              <span><strong>45 000 €</strong> levés sur 80 000 €</span>
+              <span class="badge-urgent">12 jours restants</span>
+            </div>
+          </div>
+
+          <div class="section" style="padding:2rem 0 0">
+            <div class="section-label">Documents investisseurs</div>
+            <div class="docs-grid">
+              <div class="doc-card" onclick="showToast('Document disponible après KYC validé')">
+                <div class="doc-icon">📄</div>
+                <div class="doc-title">Note d'information</div>
+                <div class="doc-sub">Équivalent DICI · 12 pages</div>
+              </div>
+              <div class="doc-card" onclick="showToast('Document disponible après KYC validé')">
+                <div class="doc-icon">🔍</div>
+                <div class="doc-title">Due diligence</div>
+                <div class="doc-sub">Rapport standardisé KAPITA</div>
+              </div>
+              <div class="doc-card" onclick="showToast('Document disponible après KYC validé')">
+                <div class="doc-icon">📋</div>
+                <div class="doc-title">Pacte d'associés</div>
+                <div class="doc-sub">Protection minoritaires · OHADA</div>
+              </div>
+              <div class="doc-card" onclick="showToast('Document disponible après KYC validé')">
+                <div class="doc-icon">📊</div>
+                <div class="doc-title">États financiers</div>
+                <div class="doc-sub">Comptes N-1 certifiés</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-sidebar">
+          <div class="simulator">
+            <div class="sim-title">Simulateur d'investissement</div>
+            <div class="sim-row">
+              <div class="sim-label">Montant investi <span id="montantVal">200 €</span></div>
+              <input type="range" id="montantSlider" min="200" max="2000" step="200" value="200">
+            </div>
+            <div class="sim-row">
+              <div class="sim-label">Multiple de sortie <span id="multVal">×2.5</span></div>
+              <input type="range" id="multSlider" min="15" max="50" step="5" value="25">
+            </div>
+            <div class="sim-row">
+              <div class="sim-label">Horizon de sortie <span id="horizonVal">3 ans</span></div>
+              <input type="range" id="horizonSlider" min="2" max="7" step="1" value="3">
+            </div>
+            <div class="sim-result">
+              <div class="sim-result-label">Plus-value estimée</div>
+              <div class="sim-result-value" id="plusvalue">+300 €</div>
+              <div class="sim-result-row">
+                <span>Retour total estimé</span>
+                <strong id="retourTotal">500 €</strong>
+              </div>
+              <div class="sim-result-row">
+                <span>TRI annualisé</span>
+                <strong style="color:var(--gold)" id="triVal">35 %</strong>
+              </div>
+              <div class="sim-result-row">
+                <span>Commission KAPITA (2 %)</span>
+                <strong id="commission">−4 €</strong>
+              </div>
+            </div>
+            <div class="sim-note">Simulation indicative uniquement. Les rendements ne sont pas garantis. Investissement en capital soumis aux risques de perte partielle ou totale.</div>
+            <button class="btn-primary" style="width:100%;margin-top:1.25rem;justify-content:center" onclick="showToast('Parcours KYC → paiement Mobile Money · Prototype de démonstration')">
+              Investir maintenant →
+            </button>
+            <button class="btn-outline" style="width:100%;margin-top:8px;justify-content:center" onclick="showToast('Question transmise au fondateur · Réponse sous 48h')">
+              Poser une question au fondateur
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ STARTUPS -->
+<div class="screen" id="screen-startups">
+  <div class="container">
+    <section class="section">
+      <div class="section-label">Déposer votre dossier de levée</div>
+      <div class="steps-row" style="margin-bottom:2rem">
+        <div class="step done"><span class="step-num">01</span>Dossier</div>
+        <div class="step"><span class="step-num">02</span>Due dil.</div>
+        <div class="step"><span class="step-num">03</span>Mise en ligne</div>
+        <div class="step"><span class="step-num">04</span>Levée</div>
+      </div>
+
+      <div class="form-layout">
+        <div class="form-main">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Nom de la startup *</label>
+              <input class="form-input" type="text" placeholder="Ex. AgriConnect CI">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Pays d'opération principal *</label>
+              <select class="form-select">
+                <option value="">Sélectionner…</option>
+                <option>Côte d'Ivoire</option>
+                <option>Sénégal</option>
+                <option>Burkina Faso</option>
+                <option>Mali</option>
+                <option>Bénin</option>
+                <option>Togo</option>
+                <option>Niger</option>
+                <option>Guinée-Bissau</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Secteur d'activité *</label>
+              <select class="form-select">
+                <option value="">Sélectionner…</option>
+                <option>AgTech</option>
+                <option>HealthTech</option>
+                <option>EdTech</option>
+                <option>Fintech</option>
+                <option>Logistique</option>
+                <option>Énergie</option>
+                <option>Commerce & Retail</option>
+                <option>CleanTech</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Montant cible (€) *</label>
+              <input class="form-input" type="number" placeholder="Ex. 80000" min="10000" max="500000">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Pitch en une phrase *</label>
+            <input class="form-input" type="text" placeholder="Ex. Marketplace agricole B2B avec paiement Mobile Money intégré">
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">CA derniers 12 mois (€)</label>
+              <input class="form-input" type="number" placeholder="0 si pré-revenue">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nombre d'employés actuels</label>
+              <input class="form-input" type="number" placeholder="Ex. 4">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Décrivez votre traction (utilisateurs, partenaires, pilotes…)</label>
+            <textarea class="form-textarea" placeholder="Ex. 1 200 agriculteurs actifs, 34 acheteurs référencés, 2,1 M€ de volume en 18 mois…"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email du fondateur *</label>
+            <input class="form-input" type="email" placeholder="fondateur@startup.com">
+          </div>
+          <button class="btn-primary" onclick="submitForm()" style="margin-top:0.5rem">
+            Soumettre mon dossier →
+          </button>
+          <p style="font-size:12px;color:var(--text-muted);margin-top:10px">Réponse KAPITA sous 5 jours ouvrés. Dossier examiné par notre comité éditorial.</p>
+        </div>
+
+        <div class="form-sidebar">
+          <div class="sidebar-title">Ce que vous obtenez</div>
+          <ul class="check-list">
+            <li><span class="check-icon">✓</span><span>Due diligence offerte si dossier accepté</span></li>
+            <li><span class="check-icon">✓</span><span>Page campagne KAPITA branded</span></li>
+            <li><span class="check-icon">✓</span><span>Accès communauté 5 000+ investisseurs</span></li>
+            <li><span class="check-icon">✓</span><span>Médiatisation réseaux sociaux KAPITA</span></li>
+            <li><span class="check-icon">✓</span><span>Pacte d'associés OHADA fourni</span></li>
+            <li><span class="check-icon">✓</span><span>Dashboard fondateur post-levée</span></li>
+            <li><span class="check-icon">✓</span><span>Rapport Q trimestriel automatisé</span></li>
+            <li><span class="check-icon">✓</span><span>Mise en relation partenaires & incubateurs</span></li>
+          </ul>
+          <div class="price-box">
+            <div class="price-label">Frais de dossier</div>
+            <div class="price-val">500 – 2 000 €</div>
+            <div class="price-note">+ 5 à 8 % de commission sur le montant levé (succès uniquement). Frais de dossier partiellement remboursés en cas d'échec.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<footer>
+  <strong>KAPITA</strong> · Prototype de démonstration · Crowdfunding Equity Afrique subsaharienne · Zone UEMOA<br>
+  <span style="margin-top:6px;display:block">Document confidentiel · 2025 · Tous droits réservés</span>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  function goTo(id) {
+    document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+    document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+    var s = document.getElementById('screen-' + id);
+    if (s) s.classList.add('active');
+    var t = document.querySelector('[data-screen="' + id + '"]');
+    if (t) t.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.getElementById('navTabs').addEventListener('click', function(e) {
+    var btn = e.target.closest('[data-screen]');
+    if (btn) goTo(btn.dataset.screen);
+  });
+
+  function showToast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, 3000);
+  }
+
+  function submitForm() {
+    showToast('Dossier soumis · Réponse KAPITA sous 5 jours ouvrés');
+  }
+
+  function updateSim() {
+    var montant   = parseInt(document.getElementById('montantSlider').value);
+    var multRaw   = parseInt(document.getElementById('multSlider').value);
+    var mult      = multRaw / 10;
+    var horizon   = parseInt(document.getElementById('horizonSlider').value);
+    var retour    = Math.round(montant * mult);
+    var pv        = retour - montant;
+    var tri       = Math.round((Math.pow(mult, 1 / horizon) - 1) * 100);
+    var commission = Math.round(montant * 0.02);
+
+    document.getElementById('montantVal').textContent  = montant.toLocaleString('fr-FR') + ' €';
+    document.getElementById('multVal').textContent     = '×' + mult.toFixed(1);
+    document.getElementById('horizonVal').textContent  = horizon + ' an' + (horizon > 1 ? 's' : '');
+    document.getElementById('plusvalue').textContent   = (pv >= 0 ? '+' : '') + pv.toLocaleString('fr-FR') + ' €';
+    document.getElementById('retourTotal').textContent = retour.toLocaleString('fr-FR') + ' €';
+    document.getElementById('triVal').textContent      = tri + ' %';
+    document.getElementById('commission').textContent  = '−' + commission + ' €';
+  }
+
+  ['montantSlider', 'multSlider', 'horizonSlider'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('input', updateSim);
+  });
+
+  updateSim();
+</script>
+</body>
+</html>
